@@ -1,0 +1,168 @@
+import os
+import sqlite3
+
+# Chapter 9: 基本ソフトウェア
+
+# 9-1 OSの仕事
+def os_jobs():
+    print("OSの主な仕事:")
+    print("1. ハードウェアとソフトウェアの間でインタフェースを提供")
+    print("2. リソース管理（CPU、メモリ、I/O）")
+    print("3. ファイル管理")
+    print("4. プロセス管理")
+
+# 9-2 ジョブ管理
+def job_management():
+    print("ジョブ管理:")
+    print("1. ジョブのスケジューリング")
+    print("2. タスクの優先順位付け")
+    print("3. バッチ処理")
+
+# 9-3 タスク管理
+def task_management():
+    print("タスク管理:")
+    print("1. プロセスの生成と終了")
+    print("2. プロセスの同期")
+    print("3. プロセス間通信（IPC）")
+
+# 9-4 実記憶管理
+def memory_management():
+    print("実記憶管理:")
+    print("1. メモリの割り当てと解放")
+    print("2. メモリの最適化")
+    print("3. ページングとセグメンテーション")
+
+# 9-5 再配置可能プログラムとプログラムの4つの性質
+def relocatable_programs():
+    print("再配置可能プログラムとプログラムの性質:")
+    print("1. 機械語命令の位置に依存しない")
+    print("2. 自由な位置でメモリに配置可能")
+    print("3. 共有ライブラリの利用")
+    print("4. 動的リンク")
+
+# 9-6 仮想記憶管理
+def virtual_memory_management():
+    print("仮想記憶管理:")
+    print("1. メモリの仮想化")
+    print("2. ページング")
+    print("3. スワッピング")
+    print("4. セグメンテーション")
+
+# Chapter 10: ファイル管理
+
+# 10-1 ファイルとは文書のこと
+def file_definition():
+    print("ファイルとは、コンピュータ内でデータや文書を保存するための場所です。")
+
+# 10-2 文書をしまう場所がディレクトリ
+def directory_definition():
+    print("ディレクトリはファイルを管理するための場所（フォルダ）です。")
+    print("ディレクトリ内にファイルや他のディレクトリが格納されます。")
+
+# 10-3 ファイルの場所を示す方法
+def file_location():
+    print("ファイルの場所は、パス（絶対パスまたは相対パス）で指定します。")
+    print("例: C:/Documents/Report.txt")
+
+# 10-4 汎用コンピュータにおけるファイル
+def general_computer_files():
+    print("汎用コンピュータにおけるファイルには、")
+    print("テキストファイル、画像ファイル、音声ファイルなど様々な種類があります。")
+
+# Chapter 11: データベース
+
+# 11-1 DBMSと関係データベース
+def dbms_and_relational_db():
+    print("DBMS（Database Management System）は、データの管理を行うソフトウェアです。")
+    print("関係データベースは、テーブルにデータを格納し、SQLを使って操作します。")
+
+# 11-2 主キーと外部キー
+def primary_and_foreign_keys():
+    print("主キーはテーブル内の各行を一意に識別するためのカラムです。")
+    print("外部キーは、他のテーブルの主キーを参照するためのカラムです。")
+
+# 11-3 正規化
+def normalization():
+    print("正規化は、冗長なデータを排除し、データベースの設計を効率的にするプロセスです。")
+    print("1NF、2NF、3NFなどがあり、データの整合性を保ちます。")
+
+# 11-4 SQLでデータベースを操作する
+def sql_operations():
+    # SQLiteの操作例
+    conn = sqlite3.connect(':memory:')  # メモリ内データベースを使用
+    c = conn.cursor()
+    
+    # テーブル作成
+    c.execute('''CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)''')
+    
+    # データ挿入
+    c.execute("INSERT INTO users (name, age) VALUES ('Alice', 30)")
+    c.execute("INSERT INTO users (name, age) VALUES ('Bob', 25)")
+    
+    # データクエリ
+    c.execute("SELECT * FROM users")
+    rows = c.fetchall()
+    
+    print("データベースの内容:")
+    for row in rows:
+        print(row)
+    
+    conn.close()
+
+# 11-5 トランザクション管理と排他制御
+def transaction_management():
+    print("トランザクション管理と排他制御:")
+    print("1. トランザクションは一連のデータベース操作を一つの単位で実行するものです。")
+    print("2. 排他制御は、複数のトランザクションが同時にデータを操作しないように制御します。")
+
+# 11-6 データベースの障害管理
+def db_failure_management():
+    print("データベースの障害管理:")
+    print("1. 障害発生時のバックアップとリストア")
+    print("2. 障害復旧手順")
+    print("3. ACID特性（Atomicity, Consistency, Isolation, Durability）")
+
+# 実行例
+def main():
+    print("Chapter 5 - 基本ソフトウェア")
+    os_jobs()
+    job_management()
+    task_management()
+    memory_management()
+    relocatable_programs()
+    virtual_memory_management()
+    
+    print("\nChapter 6 - メモリ")
+    memory_classification()
+    main_memory_and_acceleration()
+    
+    print("\nChapter 7 - ハードディスクとその他の補助記憶装置")
+    hard_disk_structure()
+    fragmentation()
+    raid_technology()
+    other_storage_devices()
+    
+    print("\nChapter 8 - その他のハードウェア")
+    input_devices()
+    display_devices()
+    printer_devices()
+    io_interfaces()
+    
+    print("\nChapter 9 - 基本ソフトウェア")
+    file_definition()
+    directory_definition()
+    file_location()
+    general_computer_files()
+    
+    print("\nChapter 10 - ファイル管理")
+    dbms_and_relational_db()
+    primary_and_foreign_keys()
+    normalization()
+    sql_operations()
+    
+    print("\nChapter 11 - データベース")
+    transaction_management()
+    db_failure_management()
+
+if __name__ == "__main__":
+    main()
