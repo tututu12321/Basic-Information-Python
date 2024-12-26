@@ -1,0 +1,54 @@
+import requests
+from bs4 import BeautifulSoup
+
+# 1. Webページの取得
+url = "https://example.com"  # 取得したいWebページのURL
+response = requests.get(url)
+
+if response.status_code == 200:
+    print("Webページの取得成功")
+    html_content = response.text
+else:
+    print("Webページの取得失敗")
+    html_content = None
+
+# 2. HTML解析
+if html_content:
+    soup = BeautifulSoup(html_content, 'html.parser')
+    print("HTML解析成功")
+    
+    # 例えば、ページのタイトルを取得
+    page_title = soup.title.string
+    print(f"ページタイトル: {page_title}")
+    
+    # その他の解析（例: すべてのリンクを取得）
+    links = soup.find_all('a')
+    for link in links:
+        print(f"リンク: {link.get('href')}")
+    
+# 3. API通信（GETリクエスト例）
+api_url = "https://jsonplaceholder.typicode.com/posts"
+response_api = requests.get(api_url)
+
+if response_api.status_code == 200:
+    print("API通信成功")
+    api_data = response_api.json()
+    print("APIレスポンスデータ:", api_data)
+else:
+    print("API通信失敗")
+
+# 4. Webフォーム送信（POSTリクエスト例）
+form_url = "https://httpbin.org/post"  # ここでは例としてhttpbinを使用
+form_data = {
+    'name': 'John Doe',
+    'email': 'johndoe@example.com'
+}
+
+response_form = requests.post(form_url, data=form_data)
+
+if response_form.status_code == 200:
+    print("Webフォーム送信成功")
+    form_response = response_form.json()  # 送信後のレスポンスをJSON形式で取得
+    print("フォーム送信後のレスポンス:", form_response)
+else:
+    print("Webフォーム送信失敗")
