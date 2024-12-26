@@ -1,0 +1,163 @@
+import numpy as np
+import heapq
+from collections import defaultdict
+
+# Chapter 3 - Information Theory
+
+# 3-1 平均情報量（エントロピー）
+def entropy(probabilities):
+    """計算された確率に基づくエントロピー（平均情報量）"""
+    return -sum(p * np.log2(p) for p in probabilities if p > 0)
+
+# Example probabilities
+probabilities = [0.25, 0.25, 0.25, 0.25]
+print(f"Entropy of the distribution: {entropy(probabilities)} bits")
+
+# 3-2 符号化とデータ圧縮
+# ハフマン符号化
+def huffman_encoding(data):
+    """ハフマン符号化のアルゴリズム"""
+    frequency = defaultdict(int)
+    for symbol in data:
+        frequency[symbol] += 1
+
+    # 優先度付きキューを使ってハフマン木を作成
+    heap = [[weight, [symbol, ""]] for symbol, weight in frequency.items()]
+    heapq.heapify(heap)
+
+    while len(heap) > 1:
+        lo = heapq.heappop(heap)
+        hi = heapq.heappop(heap)
+        for pair in lo[1:]:
+            pair[1] = '0' + pair[1]
+        for pair in hi[1:]:
+            pair[1] = '1' + pair[1]
+        heapq.heappush(heap, [lo[0] + hi[0]] + lo[1:] + hi[1:])
+
+    huffman_tree = sorted(heap[0][1:], key=lambda p: (len(p[-1]), p))
+    return huffman_tree
+
+data = "this is an example for huffman encoding"
+huffman_tree = huffman_encoding(data)
+print(f"Huffman Encoding Tree: {huffman_tree}")
+
+# 3-3 オートマトン - 簡単な有限オートマトンの実装
+class FiniteAutomaton:
+    def __init__(self, states, alphabet, transition_function, start_state, accept_states):
+        self.states = states
+        self.alphabet = alphabet
+        self.transition_function = transition_function
+        self.start_state = start_state
+        self.accept_states = accept_states
+
+    def run(self, input_string):
+        state = self.start_state
+        for symbol in input_string:
+            if symbol not in self.alphabet:
+                return False  # 無効なシンボルが現れた
+            state = self.transition_function[state][symbol]
+        return state in self.accept_states
+
+# Example DFA for binary strings ending with 1
+states = {'q0', 'q1'}
+alphabet = {'0', '1'}
+transition_function = {
+    'q0': {'0': 'q0', '1': 'q1'},
+    'q1': {'0': 'q0', '1': 'q1'}
+}
+start_state = 'q0'
+accept_states = {'q1'}
+
+fa = FiniteAutomaton(states, alphabet, transition_function, start_state, accept_states)
+input_string = "10101"
+print(f"Input string {input_string} accepted: {fa.run(input_string)}")
+
+# 3-4 形式言語 - BNF記法の簡単な例（文法生成）
+bnf_grammar = {
+    "S": ["aS", "bS", "c"],
+}
+def generate_string(symbol):
+    if symbol in bnf_grammar:
+        production = np.random.choice(bnf_grammar[symbol])
+        return ''.join(generate_string(s) for s in production)
+    return symbol
+
+# Example generation of a string from S
+print(f"Generated string: {generate_string('S')}")
+
+# Chapter 4 - Data Representation
+
+# 4-1 ビットとバイトとその他の単位
+def byte_to_bits(byte):
+    return bin(byte)[2:].zfill(8)
+
+byte_value = 65
+print(f"Byte {byte_value} in binary: {byte_to_bits(byte_value)}")
+
+# 4-2 文字の表現方法
+# UnicodeとUTF-8
+char = 'A'
+utf8_encoding = char.encode('utf-8')
+unicode_value = ord(char)
+print(f"Character '{char}' Unicode value: {unicode_value}")
+print(f"Character '{char}' UTF-8 encoding: {utf8_encoding}")
+
+# 4-3 画像などのマルチメディアデータの表現方法
+from PIL import Image
+
+def display_image(image_path):
+    image = Image.open(image_path)
+    image.show()
+
+# Example usage (assuming an image file path is provided)
+# display_image('example_image.png')
+
+# Chapter 5 - Logic Circuits
+
+# 5-1 論理回路
+def and_gate(a, b):
+    return a & b
+
+def or_gate(a, b):
+    return a | b
+
+def not_gate(a):
+    return not a
+
+# Example logic gate operation
+print(f"AND gate: 1 AND 0 = {and_gate(1, 0)}")
+print(f"OR gate: 1 OR 0 = {or_gate(1, 0)}")
+print(f"NOT gate: NOT 1 = {not_gate(1)}")
+
+# 5-2 半加算器と全加算器
+def half_adder(a, b):
+    sum_bit = a ^ b
+    carry_bit = a & b
+    return sum_bit, carry_bit
+
+def full_adder(a, b, carry_in):
+    sum_bit, carry_bit = half_adder(a, b)
+    sum_bit, carry_out = half_adder(sum_bit, carry_in)
+    carry_out = carry_bit | carry_out
+    return sum_bit, carry_out
+
+# Example half adder and full adder operation
+a, b, carry_in = 1, 1, 0
+print(f"Half Adder: {half_adder(a, b)}")
+print(f"Full Adder: {full_adder(a, b, carry_in)}")
+
+# 5-3 ビット操作
+def flip_bit(bit):
+    return bit ^ 1
+
+def extract_bit(number, position):
+    return (number >> position) & 1
+
+# Example bit manipulation
+bit = 0
+print(f"Flip bit: {flip_bit(bit)}")
+number = 5  # binary 101
+print(f"Extract bit at position 2: {extract_bit(number, 2)}")
+
+# 5-4 論理回路とLSI
+# For more complex circuits and LSI/FPGA implementation, more advanced tools like HDL simulation would be required.
