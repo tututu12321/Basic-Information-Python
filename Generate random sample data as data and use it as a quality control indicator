@@ -1,0 +1,97 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# 19-1 PDCAサイクルとデータ整理技法
+
+# PDCAサイクル: Plan-Do-Check-Act
+def pdca_cycle():
+    print("PDCAサイクル:")
+    print("1. Plan (計画) - 目標を設定し、実行計画を立てる")
+    print("2. Do (実行) - 計画を実行する")
+    print("3. Check (評価) - 実行結果を確認し、問題点を洗い出す")
+    print("4. Act (改善) - 評価結果を元に改善策を実行")
+    print("これを繰り返すことで継続的な改善を目指します。")
+
+# データ整理技法: 基本的な手法
+def data整理技法():
+    print("データ整理技法:")
+    print("1. データクレンジング - 欠損値や異常値の処理")
+    print("2. 正規化 - データのスケールを揃える")
+    print("3. 集約 - 必要な情報を集約して簡潔にする")
+
+# 19-2 グラフ
+def plot_graph():
+    print("グラフ:")
+    
+    # サンプルデータ
+    x = np.linspace(0, 10, 100)
+    y = np.sin(x)
+    
+    plt.figure(figsize=(8, 6))
+    plt.plot(x, y, label='sin(x)', color='blue')
+    plt.title('Sin(x) Graph')
+    plt.xlabel('X-axis')
+    plt.ylabel('Y-axis')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
+# 19-3 QC七つ道具と呼ばれる品質管理手法たち
+def qc_tools():
+    print("QC七つ道具:")
+    print("1. パレート図")
+    print("2. ヒストグラム")
+    print("3. 散布図")
+    print("4. 管理図")
+    print("5. チェックシート")
+    print("6. 特性要因図（フィッシュボーン図）")
+    print("7. 層別")
+    
+    # ここでは、ヒストグラムと散布図を描画します。
+    
+    # ヒストグラム
+    data = np.random.normal(0, 1, 1000)
+    plt.figure(figsize=(8, 6))
+    plt.hist(data, bins=30, edgecolor='black', color='lightblue')
+    plt.title('Histogram')
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.show()
+    
+    # 散布図
+    x = np.random.normal(0, 1, 100)
+    y = 2 * x + np.random.normal(0, 1, 100)
+    plt.figure(figsize=(8, 6))
+    plt.scatter(x, y, color='orange')
+    plt.title('Scatter Plot')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.show()
+
+    # 品質管理指標
+    quality_management_metrics(data, x, y)
+
+# 追加: ヒストグラムと散布図における品質管理指標（平均、標準偏差、相関係数）
+def quality_management_metrics(data, x, y):
+    print("品質管理指標:")
+    
+    # 平均と標準偏差
+    mean = np.mean(data)
+    std_dev = np.std(data)
+    print(f"データの平均: {mean}, 標準偏差: {std_dev}")
+    
+    # 相関係数
+    correlation = np.corrcoef(x, y)[0, 1]
+    print(f"相関係数 (x, y): {correlation}")
+
+# 実行例
+def main():
+    pdca_cycle()
+    data整理技法()
+    plot_graph()
+    qc_tools()
+
+if __name__ == "__main__":
+    main()
