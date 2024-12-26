@@ -1,0 +1,87 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. RASIS (Reliability, Availability, Serviceability)
+def rasis(mtbf, mttr):
+    """RASIS指標の計算"""
+    # RASIS: Reliability, Availability, Serviceability
+    availability = mtbf / (mtbf + mttr)
+    return availability
+
+# 2. MTBFとMTTRの計算
+def calculate_mtbf(failures, total_time):
+    """MTBF: 平均故障間隔の計算"""
+    return total_time / failures
+
+def calculate_mttr(repairs, total_repair_time):
+    """MTTR: 平均修理時間の計算"""
+    return total_repair_time / repairs
+
+# 3. 直列システムと並列システムの稼働率
+def series_reliability(reliabilities):
+    """直列システムの稼働率（各システムが連携する場合）"""
+    return np.prod(reliabilities)
+
+def parallel_reliability(reliabilities):
+    """並列システムの稼働率（いずれかのシステムが稼働する場合）"""
+    return 1 - np.prod([1 - r for r in reliabilities])
+
+# 4. 故障しても耐えるという考え方
+def fault_tolerant_system(reliabilities, tolerance_level=0.9):
+    """故障しても耐えるシステムの稼働率"""
+    return np.prod(reliabilities) >= tolerance_level
+
+# 5. バスタブ曲線のプロット
+def bathtub_curve():
+    """バスタブ曲線（信頼性 vs 時間）"""
+    time = np.linspace(0, 10, 1000)
+    early_failure = np.exp(-0.5 * time)  # 初期故障
+    random_failure = np.ones_like(time)  # 定常故障
+    wear_out_failure = np.exp(0.2 * time)  # 故障率の増加
+
+    # バスタブ曲線を描画
+    plt.figure(figsize=(10, 6))
+    plt.plot(time, early_failure, label='Early Failures', color='red')
+    plt.plot(time, random_failure, label='Random Failures', color='green')
+    plt.plot(time, wear_out_failure, label='Wear-out Failures', color='blue')
+    plt.title('Bathtub Curve: Reliability vs Time')
+    plt.xlabel('Time')
+    plt.ylabel('Failure Rate')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+# 6. システムに必要なお金の話（費用）
+def system_cost(mtbf, mttr, repair_cost, replacement_cost):
+    """システムの信頼性を考慮したコストの計算"""
+    average_repair_cost = repair_cost * (mttr / mtbf)
+    total_cost = average_repair_cost + replacement_cost
+    return total_cost
+
+# Example Usage:
+
+# 1. MTBFとMTTRを使ってRASISを計算
+mtbf_example = 1000  # 1000時間
+mttr_example = 50  # 50時間
+availability = rasis(mtbf_example, mttr_example)
+print(f"System Availability (RASIS): {availability:.2f}")
+
+# 2. 直列システムと並列システムの稼働率
+reliabilities = [0.9, 0.95, 0.85]  # 各システムの稼働率
+serial_reliability = series_reliability(reliabilities)
+parallel_reliability_value = parallel_reliability(reliabilities)
+print(f"Serial System Reliability: {serial_reliability:.2f}")
+print(f"Parallel System Reliability: {parallel_reliability_value:.2f}")
+
+# 3. 故障しても耐えるシステム
+fault_tolerant = fault_tolerant_system(reliabilities, tolerance_level=0.9)
+print(f"Fault-Tolerant System: {fault_tolerant}")
+
+# 4. バスタブ曲線のプロット
+bathtub_curve()
+
+# 5. システムに必要なお金の話
+repair_cost_example = 500  # 修理費用
+replacement_cost_example = 2000  # 交換費用
+total_system_cost = system_cost(mtbf_example, mttr_example, repair_cost_example, replacement_cost_example)
+print(f"Total System Cost: {total_system_cost:.2f}")
