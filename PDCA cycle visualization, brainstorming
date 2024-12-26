@@ -1,0 +1,119 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import networkx as nx
+
+# 1. PDCA Cycle
+steps = ['Plan', 'Do', 'Check', 'Act']
+sizes = [1, 1, 1, 1]
+
+fig, ax = plt.subplots()
+ax.pie(sizes, labels=steps, autopct='%1.1f%%', startangle=90)
+ax.axis('equal')
+plt.title("PDCA Cycle")
+plt.show()
+
+# 2. Brainstorming
+brainstorming_ideas = ['Idea 1', 'Idea 2', 'Idea 3', 'Idea 4', 'Idea 5']
+for i, idea in enumerate(brainstorming_ideas, 1):
+    print(f"Idea {i}: {idea}")
+
+# 3. KJ Method
+ideas = ['Idea 1', 'Idea 2', 'Idea 3', 'Idea 4', 'Idea 5']
+groups = {'Group 1': ['Idea 1', 'Idea 2'], 'Group 2': ['Idea 3', 'Idea 4'], 'Group 3': ['Idea 5']}
+for group, items in groups.items():
+    print(f"{group}: {', '.join(items)}")
+
+# 4. Decision Table
+decision_table = pd.DataFrame({
+    'Condition1': ['Yes', 'No', 'Yes'],
+    'Condition2': ['No', 'Yes', 'Yes'],
+    'Result': ['A', 'B', 'C']
+})
+print(decision_table)
+
+# 5. Graphs
+
+# 5.1 Radar Chart
+labels = ['Quality', 'Cost', 'Speed', 'Service', 'Reliability']
+values = [4, 3, 5, 2, 4]
+angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False).tolist()
+values += values[:1]
+angles += angles[:1]
+
+fig, ax = plt.subplots(figsize=(6, 6), dpi=150, subplot_kw=dict(polar=True))
+ax.fill(angles, values, color='blue', alpha=0.25)
+ax.plot(angles, values, color='blue', linewidth=2)
+ax.set_yticklabels([])
+ax.set_xticks(angles[:-1])
+ax.set_xticklabels(labels)
+plt.title('Radar Chart')
+plt.show()
+
+# 5.2 Portfolio Diagram
+x = [2, 4, 6, 8]
+y = [3, 7, 1, 5]
+sizes = [100, 200, 300, 400]
+colors = ['red', 'blue', 'green', 'purple']
+
+plt.scatter(x, y, s=sizes, c=colors, alpha=0.5)
+plt.title('Portfolio Diagram')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.show()
+
+# 6. QC Tools
+
+# 6.1 Pareto Chart
+data = [80, 15, 5]
+labels = ['A', 'B', 'C']
+plt.pie(data, labels=labels, autopct='%1.1f%%', startangle=90)
+plt.title('Pareto Chart')
+plt.show()
+
+# 6.2 Scatter Plot
+x = [1, 2, 3, 4, 5]
+y = [5, 6, 7, 8, 9]
+plt.scatter(x, y)
+plt.title('Scatter Plot')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.show()
+
+# 6.3 Histogram
+data = np.random.randn(1000)
+plt.hist(data, bins=30, edgecolor='black')
+plt.title('Histogram')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.show()
+
+# 6.4 Control Chart
+time = np.arange(1, 11)
+data = [10, 12, 13, 12, 14, 15, 16, 18, 19, 20]
+plt.plot(time, data, marker='o', linestyle='-', color='blue')
+plt.title('Control Chart')
+plt.xlabel('Time')
+plt.ylabel('Data')
+plt.grid(True)
+plt.show()
+
+# 6.5 Fishbone Diagram (Ishikawa Diagram)
+factors = ['Man', 'Machine', 'Material', 'Method']
+plt.bar(factors, [5, 4, 3, 4])
+plt.title('Fishbone Diagram')
+plt.show()
+
+# 6.6 Check Sheet
+checklist = ['Item 1', 'Item 2', 'Item 3']
+status = ['Complete', 'Incomplete', 'Complete']
+df = pd.DataFrame({'Check Item': checklist, 'Status': status})
+print(df)
+
+# 6.7 Association Diagram
+G = nx.Graph()
+G.add_edges_from([('Cause 1', 'Effect 1'), ('Cause 2', 'Effect 2'), ('Cause 3', 'Effect 3')])
+
+nx.draw(G, with_labels=True)
+plt.title('Association Diagram')
+plt.show()
