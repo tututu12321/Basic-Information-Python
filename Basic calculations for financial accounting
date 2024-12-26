@@ -1,0 +1,51 @@
+import numpy as np
+import pandas as pd
+
+# 20-1 費用と利益
+def profit_and_loss(revenue, cost_of_goods_sold, operating_expenses):
+    # 収益から直接のコスト（売上原価）と営業費用を引いて利益を計算
+    gross_profit = revenue - cost_of_goods_sold
+    operating_profit = gross_profit - operating_expenses
+    return gross_profit, operating_profit
+
+# 20-2 在庫の管理
+def inventory_management(initial_inventory, purchases, sales):
+    # 在庫の管理計算：期首在庫 + 仕入れ - 売上 = 期末在庫
+    ending_inventory = initial_inventory + purchases - sales
+    return ending_inventory
+
+# 20-3 財務諸表は企業のフトコロ具合を示す
+def balance_sheet(assets, liabilities, equity):
+    # バランスシート計算: 資産 = 負債 + 資本
+    assets_equation = liabilities + equity
+    is_balanced = assets == assets_equation
+    return is_balanced, assets_equation
+
+# サンプルデータ
+revenue = 500000  # 収益
+cost_of_goods_sold = 200000  # 売上原価
+operating_expenses = 100000  # 営業費用
+
+initial_inventory = 5000  # 初期在庫数
+purchases = 3000  # 仕入れ
+sales = 2000  # 売上
+
+assets = 600000  # 資産
+liabilities = 400000  # 負債
+equity = 200000  # 資本
+
+# 20-1 費用と利益の計算
+gross_profit, operating_profit = profit_and_loss(revenue, cost_of_goods_sold, operating_expenses)
+print(f"Gross Profit: {gross_profit}")
+print(f"Operating Profit: {operating_profit}")
+
+# 20-2 在庫の管理
+ending_inventory = inventory_management(initial_inventory, purchases, sales)
+print(f"Ending Inventory: {ending_inventory}")
+
+# 20-3 財務諸表の検証
+is_balanced, assets_equation = balance_sheet(assets, liabilities, equity)
+if is_balanced:
+    print(f"The balance sheet is balanced: Assets = Liabilities + Equity = {assets_equation}")
+else:
+    print(f"The balance sheet is not balanced. Assets = {assets} while Liabilities + Equity = {assets_equation}")
