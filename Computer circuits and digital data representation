@@ -1,0 +1,137 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Chapter 3: コンピュータの回路を知る
+
+# 3-1 論理演算とベン図
+def logic_operations():
+    # 論理演算：AND、OR、NOT
+    A = np.array([0, 1])
+    B = np.array([0, 1])
+    
+    print("A AND B:", np.bitwise_and(A, B))
+    print("A OR B:", np.bitwise_or(A, B))
+    print("NOT A:", np.bitwise_not(A))
+    
+    # ベン図の描画
+    fig, ax = plt.subplots()
+    ax.set_title('Venn Diagram: AND, OR, NOT')
+    ax.set_xlim(-1, 2)
+    ax.set_ylim(-1, 2)
+    ax.plot([0, 1], [0, 0], color='red', lw=2)  # A
+    ax.plot([0, 0], [0, 1], color='green', lw=2)  # B
+    ax.fill_between([0, 1], [0, 0], [1, 1], color='blue', alpha=0.3)
+    plt.show()
+
+# 3-2 論理回路と基本回路
+def basic_logic_gates():
+    # AND gate
+    def and_gate(a, b):
+        return a & b
+
+    # OR gate
+    def or_gate(a, b):
+        return a | b
+
+    # NOT gate
+    def not_gate(a):
+        return ~a & 1  # 1ビットの反転
+
+    print("AND(1, 0):", and_gate(1, 0))
+    print("OR(1, 0):", or_gate(1, 0))
+    print("NOT(1):", not_gate(1))
+
+# 3-3 基本回路を組み合わせた論理回路
+def complex_logic_gate():
+    # 複合論理回路 (AND -> OR -> NOT)
+    def and_gate(a, b):
+        return a & b
+
+    def or_gate(a, b):
+        return a | b
+
+    def not_gate(a):
+        return ~a & 1  # 1ビットの反転
+
+    # 入力
+    a = 1
+    b = 0
+    and_result = and_gate(a, b)
+    or_result = or_gate(a, b)
+    final_result = not_gate(and_result | or_result)  # OR後にNOT
+    print("AND -> OR -> NOT Result:", final_result)
+
+# 3-4 半加算器と全加算器
+def half_adder(a, b):
+    sum_bit = a ^ b
+    carry_bit = a & b
+    return sum_bit, carry_bit
+
+def full_adder(a, b, carry_in):
+    sum_bit, carry_half = half_adder(a, b)
+    sum_final, carry_out = half_adder(sum_bit, carry_in)
+    carry_out |= carry_half
+    return sum_final, carry_out
+
+# 半加算器と全加算器の例
+print("Half Adder (1, 1):", half_adder(1, 1))
+print("Full Adder (1, 1, 0):", full_adder(1, 1, 0))
+
+# 3-5 ビット操作とマスクパターン
+def bit_manipulation():
+    # ビットのAND、OR、XOR
+    a = 0b1101
+    b = 0b1011
+    
+    print(f"AND: {bin(a & b)}")
+    print(f"OR: {bin(a | b)}")
+    print(f"XOR: {bin(a ^ b)}")
+    
+    # マスクパターン
+    mask = 0b1110
+    masked_value = a & mask
+    print(f"Masked value: {bin(masked_value)}")
+
+# Chapter 4: デジタルデータのあらわし方
+
+# 4-1 ビットとバイトとその他の単位
+def byte_bit_conversion():
+    bits = 8
+    bytes_value = 1
+    print(f"{bytes_value} Byte = {bytes_value * bits} Bits")
+    print(f"{1024} Bytes = {1024 * bits} Bits")
+    
+# 4-2 文字の表現方法
+def string_to_bits():
+    string = "Hello"
+    # 文字列をバイナリ表現に変換
+    binary_representation = ' '.join(format(ord(c), '08b') for c in string)
+    print(f"文字列 '{string}' のバイナリ表現: {binary_representation}")
+
+# 4-3 画像など、マルチメディアデータの表現方法
+def image_to_bits(image_path='sample_image.jpg'):
+    # 画像をバイナリ形式で読み込む例
+    image = Image.open(image_path)
+    image_data = np.array(image)
+    print(f"画像データの形状: {image_data.shape}")
+    print(f"画像データの先頭部分:\n {image_data[:5]}")
+
+# 実行例
+def main():
+    print("Chapter 3 - コンピュータの回路を知る")
+    logic_operations()
+    basic_logic_gates()
+    complex_logic_gate()
+    print("\nHalf Adder と Full Adder:")
+    print("Half Adder (1, 1):", half_adder(1, 1))
+    print("Full Adder (1, 1, 0):", full_adder(1, 1, 0))
+    bit_manipulation()
+    
+    print("\nChapter 4 - デジタルデータのあらわし方")
+    byte_bit_conversion()
+    string_to_bits()
+    # 画像のファイルパスに応じて処理を追加
+    # image_to_bits()
+
+if __name__ == "__main__":
+    main()
