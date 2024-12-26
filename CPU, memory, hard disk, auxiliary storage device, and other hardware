@@ -1,0 +1,156 @@
+# Chapter 5: CPU（Central Processing Unit）
+
+# 5-1 CPUとコンピュータの5大装置
+def cpu_and_computer_components():
+    components = ["CPU (Central Processing Unit)", "メモリ (Memory)", "入出力装置 (I/O Devices)", "バス (Bus)", "補助記憶装置 (Secondary Storage)"]
+    print("コンピュータの5大装置:", components)
+
+# 5-2 ノイマン型コンピュータ
+def von_neumann_architecture():
+    print("ノイマン型コンピュータは、次のように構成されています:")
+    print("1. 計算ユニット（CPU）")
+    print("2. メモリ（主記憶装置）")
+    print("3. 入出力装置")
+    print("4. バス（データ、アドレス、制御信号）")
+
+# 5-3 CPUの命令実行手順とレジスタ
+def cpu_instruction_execution():
+    print("CPUの命令実行手順:")
+    print("1. フェッチ: メモリから命令を取得")
+    print("2. デコード: 命令を解読")
+    print("3. 実行: 命令を実行")
+    print("4. レジスタ更新: 結果をレジスタに格納")
+
+# 5-4 機械語のアドレス指定方式
+def addressing_modes():
+    modes = ["直接アドレス指定", "間接アドレス指定", "即値アドレス指定", "基底アドレス指定"]
+    print("機械語のアドレス指定方式:", modes)
+
+# 5-5 CPUの性能指標
+def cpu_performance_metrics():
+    print("CPUの性能指標:")
+    print("1. クロック周波数 (GHz)")
+    print("2. IPC (Instructions per Clock Cycle)")
+    print("3. ベンチマークテスト")
+    print("4. パイプラインの深さ")
+
+# 5-6 CPUの高速化技術
+def cpu_acceleration_technologies():
+    print("CPUの高速化技術:")
+    print("1. パイプライン処理")
+    print("2. 分岐予測")
+    print("3. 並列処理")
+    print("4. スーパースカラ技術")
+
+# Chapter 6: メモリ
+
+# 6-1 メモリの分類
+def memory_classification():
+    print("メモリの分類:")
+    print("1. 主記憶装置 (RAM, ROM)")
+    print("2. 補助記憶装置 (ハードディスク、SSD)")
+    print("3. キャッシュメモリ")
+    print("4. 仮想メモリ")
+
+# 6-2 主記憶装置と高速化手法
+def main_memory_and_acceleration():
+    print("主記憶装置と高速化手法:")
+    print("1. DRAM（ダイナミックRAM）")
+    print("2. SRAM（スタティックRAM）")
+    print("3. キャッシュメモリの階層化")
+    print("4. メモリインターリーブ")
+
+# Chapter 7: ハードディスクとその他の補助記憶装置
+
+# 7-1 ハードディスクの構造と記録方法
+def hard_disk_structure():
+    print("ハードディスクの構造:")
+    print("1. プラッタ（ディスク）")
+    print("2. ヘッド（読み書き装置）")
+    print("3. シリンダ、トラック、セクター")
+    print("記録方法: 磁気記録方式")
+
+# 7-2 フラグメンテーション
+def fragmentation():
+    print("フラグメンテーションとは、")
+    print("データが断片化し、ファイルが非連続に保存される現象です。")
+    print("これにより、ディスクアクセス速度が低下します。")
+
+# 7-3 RAIDはハードディスクの合体技
+def raid_technology():
+    print("RAID（Redundant Array of Independent Disks）は、")
+    print("複数のハードディスクを組み合わせ、冗長性やパフォーマンスを向上させる技術です。")
+    print("RAIDレベル（RAID 0, RAID 1, RAID 5 など）によって、")
+    print("データのミラーリングやストライピングを行います。")
+
+# 7-4 ハードディスク以外の補助記憶装置
+def other_storage_devices():
+    print("ハードディスク以外の補助記憶装置:")
+    print("1. SSD (Solid State Drive)")
+    print("2. 光ディスク (CD, DVD, Blu-ray)")
+    print("3. フラッシュメモリ (USBメモリ、SDカード)")
+    print("4. テープストレージ")
+
+# Chapter 8: その他のハードウェア
+
+# 8-1 入力装置
+def input_devices():
+    print("入力装置:")
+    print("1. キーボード")
+    print("2. マウス")
+    print("3. タッチスクリーン")
+    print("4. 音声入力")
+    print("5. カメラ、スキャナー")
+
+# 8-2 ディスプレイ
+def display_devices():
+    print("ディスプレイ:")
+    print("1. CRT（陰極線管）")
+    print("2. LCD（液晶ディスプレイ）")
+    print("3. OLED（有機ELディスプレイ）")
+    print("4. プロジェクター")
+
+# 8-3 プリンタ
+def printer_devices():
+    print("プリンタ:")
+    print("1. インクジェットプリンタ")
+    print("2. レーザープリンタ")
+    print("3. 熱転写プリンタ")
+
+# 8-4 入出力インタフェース
+def io_interfaces():
+    print("入出力インタフェース:")
+    print("1. USB")
+    print("2. HDMI")
+    print("3. Ethernet")
+    print("4. シリアルポート")
+    print("5. パラレルポート")
+
+# 実行例
+def main():
+    print("Chapter 5 - CPU（Central Processing Unit）")
+    cpu_and_computer_components()
+    von_neumann_architecture()
+    cpu_instruction_execution()
+    addressing_modes()
+    cpu_performance_metrics()
+    cpu_acceleration_technologies()
+    
+    print("\nChapter 6 - メモリ")
+    memory_classification()
+    main_memory_and_acceleration()
+    
+    print("\nChapter 7 - ハードディスクとその他の補助記憶装置")
+    hard_disk_structure()
+    fragmentation()
+    raid_technology()
+    other_storage_devices()
+    
+    print("\nChapter 8 - その他のハードウェア")
+    input_devices()
+    display_devices()
+    printer_devices()
+    io_interfaces()
+
+if __name__ == "__main__":
+    main()
