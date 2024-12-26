@@ -1,0 +1,119 @@
+# Chapter 1: 「n進数」の扱いに慣れる
+
+# 1-1 よく使われるn進数（2進数、8進数、10進数、16進数）
+def base_conversion():
+    # 2進数 to 10進数
+    binary = '1011'
+    decimal = int(binary, 2)
+    print(f"2進数 {binary} は 10進数 {decimal} です。")
+    
+    # 10進数 to 2進数
+    decimal = 11
+    binary = bin(decimal)[2:]
+    print(f"10進数 {decimal} は 2進数 {binary} です。")
+    
+    # 16進数 to 10進数
+    hexadecimal = 'A'
+    decimal = int(hexadecimal, 16)
+    print(f"16進数 {hexadecimal} は 10進数 {decimal} です。")
+    
+    # 10進数 to 16進数
+    decimal = 10
+    hexadecimal = hex(decimal)[2:]
+    print(f"10進数 {decimal} は 16進数 {hexadecimal} です。")
+    
+# 基数変換（例: 任意の進数に変換）
+def base_conversion_general(num, base):
+    if base < 2 or base > 16:
+        raise ValueError("Base must be between 2 and 16.")
+    digits = "0123456789ABCDEF"
+    result = ""
+    while num > 0:
+        result = digits[num % base] + result
+        num //= base
+    return result or "0"
+
+# Chapter 2: 2進数の計算と数値表現
+
+# 2-1 2進数の足し算と引き算
+def binary_addition_subtraction():
+    # 2進数足し算
+    a = '1011'  # 11 in decimal
+    b = '1101'  # 13 in decimal
+    sum_result = bin(int(a, 2) + int(b, 2))[2:]
+    print(f"{a} + {b} = {sum_result}")
+    
+    # 2進数引き算
+    a = '1101'  # 13 in decimal
+    b = '1011'  # 11 in decimal
+    diff_result = bin(int(a, 2) - int(b, 2))[2:]
+    print(f"{a} - {b} = {diff_result}")
+
+# 2-2 シフト演算と2進数のかけ算割り算
+def binary_shift_operations():
+    a = 0b1010  # 10 in decimal
+    print(f"元の2進数: {bin(a)}")
+    
+    # 左シフト
+    left_shift = bin(a << 2)
+    print(f"左シフト（<< 2）: {left_shift}")
+    
+    # 右シフト
+    right_shift = bin(a >> 2)
+    print(f"右シフト（>> 2）: {right_shift}")
+    
+    # 2進数掛け算（2進数に対する掛け算）
+    multiplication_result = bin(a * 3)
+    print(f"掛け算（10 * 3）: {multiplication_result}")
+    
+    # 2進数割り算（2進数に対する割り算）
+    division_result = bin(a // 2)
+    print(f"割り算（10 // 2）: {division_result}")
+
+# 2-3 小数点を含む数のあらわし方
+def binary_float_representation():
+    # 2進数で小数点を扱う例（0.625）
+    float_num = 0.625
+    bin_integer = int(float_num)
+    bin_fraction = float_num - bin_integer
+    bin_fraction_str = ''
+    while bin_fraction > 0:
+        bin_fraction *= 2
+        bit = int(bin_fraction)
+        bin_fraction_str += str(bit)
+        bin_fraction -= bit
+    print(f"0.625 を 2進数に変換: 0.{bin_fraction_str}")
+    
+    # Pythonでは浮動小数点数を bin() で直接扱えないため、例としての表現を行っています。
+
+# 2-4 誤差
+def error_calculation():
+    # 浮動小数点の誤差を確認する
+    x = 0.1 + 0.2
+    print(f"0.1 + 0.2 = {x} (誤差が生じることを確認)")
+    
+    # 誤差計算
+    expected = 0.3
+    error = abs(expected - x)
+    print(f"誤差 = |{expected} - {x}| = {error}")
+    
+    # 浮動小数点の比較を行う方法
+    epsilon = 1e-9
+    if abs(x - expected) < epsilon:
+        print("値は誤差範囲内で一致しています。")
+    else:
+        print("値は一致していません。")
+
+# 実行例
+def main():
+    print("Chapter 1 - n進数の基数変換")
+    base_conversion()
+    
+    print("\nChapter 2 - 2進数の計算と数値表現")
+    binary_addition_subtraction()
+    binary_shift_operations()
+    binary_float_representation()
+    error_calculation()
+
+if __name__ == "__main__":
+    main()
