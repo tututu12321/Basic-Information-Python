@@ -1,0 +1,126 @@
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+from sympy import symbols, Eq, solve
+from itertools import permutations, combinations
+
+# 1. 2進数とn進数の変換
+def convert_base(value, base_from, base_to):
+    if base_from == 10:
+        return np.base_repr(value, base=base_to)
+    elif base_to == 10:
+        return int(str(value), base=base_from)
+    else:
+        raise ValueError("This conversion is not supported.")
+
+# Example
+binary = '1010'
+decimal = int(binary, 2)
+print(f"{binary} in binary is {decimal} in decimal")
+
+# 2. 2の補数計算
+def two_complement(bits, value):
+    return bin((1 << bits) + value)[2:]
+
+# Example
+value = 5
+bits = 8
+print(f"Two's complement of {value} in {bits}-bit: {two_complement(bits, value)}")
+
+# 3. シフト演算
+def arithmetic_shift(value, bits):
+    return value >> bits if value >= 0 else (value + (1 << 32)) >> bits
+
+# Example
+print(f"Arithmetic shift of 5 by 2 bits: {arithmetic_shift(5, 2)}")
+
+# 4. 集合演算
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+union = A.union(B)
+intersection = A.intersection(B)
+difference = A.difference(B)
+print(f"Union: {union}, Intersection: {intersection}, Difference: {difference}")
+
+# 5. 確率 - 順列と組み合わせ
+def calculate_permutations(n, r):
+    return math.perm(n, r)
+
+def calculate_combinations(n, r):
+    return math.comb(n, r)
+
+# Example
+print(f"Permutations of 5 objects taken 3 at a time: {calculate_permutations(5, 3)}")
+print(f"Combinations of 5 objects taken 3 at a time: {calculate_combinations(5, 3)}")
+
+# 6. 統計 - 正規分布と標準偏差
+data = [5, 7, 8, 10, 12, 15, 18, 19, 20]
+mean = np.mean(data)
+std_dev = np.std(data)
+print(f"Mean: {mean}, Standard Deviation: {std_dev}")
+
+# 7. グラフ理論 - ノードとエッジ
+class Graph:
+    def __init__(self):
+        self.graph = {}
+    
+    def add_edge(self, u, v):
+        if u not in self.graph:
+            self.graph[u] = []
+        if v not in self.graph:
+            self.graph[v] = []
+        self.graph[u].append(v)
+        self.graph[v].append(u)
+
+    def display(self):
+        for node in self.graph:
+            print(f"{node}: {self.graph[node]}")
+
+# Example usage
+g = Graph()
+g.add_edge(1, 2)
+g.add_edge(1, 3)
+g.add_edge(2, 4)
+g.display()
+
+# 8. 数値計算 - 階乗、対数、平方根、数列の和
+# Square root
+sqrt_value = math.sqrt(16)
+print(f"Square root of 16: {sqrt_value}")
+
+# Logarithm
+log_value = math.log(100, 10)  # log base 10
+print(f"Logarithm of 100 with base 10: {log_value}")
+
+# Factorial
+factorial_value = math.factorial(5)
+print(f"Factorial of 5: {factorial_value}")
+
+# Sum of sequence
+sequence = np.arange(1, 11)
+sum_of_sequence = np.sum(sequence)
+print(f"Sum of numbers from 1 to 10: {sum_of_sequence}")
+
+# 9. 統計分布（正規分布） - 正規分布のプロット
+x = np.linspace(-5, 5, 100)
+y = (1 / (np.sqrt(2 * np.pi))) * np.exp(-0.5 * x**2)
+
+plt.plot(x, y)
+plt.title('Normal Distribution')
+plt.xlabel('x')
+plt.ylabel('Probability Density')
+plt.grid(True)
+plt.show()
+
+# 10. 確率 - マルコフ過程
+def markov_process(transition_matrix, state, steps):
+    for _ in range(steps):
+        state = np.dot(state, transition_matrix)
+    return state
+
+# Example transition matrix for a 2-state Markov process
+transition_matrix = np.array([[0.9, 0.1], [0.2, 0.8]])
+initial_state = np.array([1, 0])  # Starting in state 0
+steps = 5
+final_state = markov_process(transition_matrix, initial_state, steps)
+print(f"State after {steps} steps: {final_state}")
