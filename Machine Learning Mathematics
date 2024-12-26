@@ -1,0 +1,63 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+# 1. 数学関数を定義
+def linear_function(x, a, b):
+    return a * x + b
+
+def quadratic_function(x, a, b, c):
+    return a * x**2 + b * x + c
+
+def sine_function(x):
+    return np.sin(x)
+
+def sigmoid_function(x):
+    return 1 / (1 + np.exp(-x))
+
+# 学習用データセットの生成
+def generate_data(func, x_range, params, num_points=500):
+    x = np.linspace(x_range[0], x_range[1], num_points)
+    y = func(x, *params)
+    return x, y
+
+# 各関数のデータ生成
+x_linear, y_linear = generate_data(linear_function, [-10, 10], [2, 1])
+x_quadratic, y_quadratic = generate_data(quadratic_function, [-10, 10], [1, -2, 1])
+x_sine, y_sine = generate_data(sine_function, [-10, 10], [])
+x_sigmoid, y_sigmoid = generate_data(sigmoid_function, [-10, 10], [])
+
+# 学習用データを1つに統合
+x_train = np.concatenate([x_linear, x_quadratic, x_sine, x_sigmoid])
+y_train = np.concatenate([y_linear, y_quadratic, y_sine, y_sigmoid])
+
+# ディープラーニングモデル構築
+model = Sequential([
+    Dense(64, activation='relu', input_dim=1),
+    Dense(64, activation='relu'),
+    Dense(1)  # 出力層
+])
+
+# モデルのコンパイル
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+
+# 学習
+x_train = x_train.reshape(-1, 1)  # 入力データを形状変更
+model.fit(x_train, y_train, epochs=100, batch_size=32, verbose=1)
+
+# モデルの予測とプロット
+x_test = np.linspace(-10, 10, 500).reshape(-1, 1)
+y_pred = model.predict(x_test)
+
+plt.figure(figsize=(12, 6))
+plt.plot(x_test, y_pred, label="Predicted", color="blue")
+plt.plot(x_linear, y_linear, label="Linear Function", linestyle="--", color="red")
+plt.plot(x_quadratic, y_quadratic, label="Quadratic Function", linestyle="--", color="green")
+plt.plot(x_sine, y_sine, label="Sine Function", linestyle="--", color="orange")
+plt.plot(x_sigmoid, y_sigmoid, label="Sigmoid Function", linestyle="--", color="purple")
+plt.title("Deep Learning Prediction vs Actual Functions")
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.legend()
+plt.show()
