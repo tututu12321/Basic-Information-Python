@@ -1,0 +1,171 @@
+import time
+
+# 16-1 プログラミング言語とは
+def programming_languages():
+    print("プログラミング言語とは、コンピュータに指示を与えるために使用される形式的な言語です。")
+    print("Python、C、Java、Rubyなどが代表的なプログラミング言語です。")
+
+# 16-2 コンパイラ方式でのプログラム実行手順
+def compiler_execution():
+    print("コンパイラ方式では、プログラムを実行する前にソースコードを機械語に変換します。")
+    print("変換された機械語は実行可能なバイナリファイルになります。")
+
+# 16-3 変数は入れ物として使う箱
+def variables():
+    a = 10  # 変数aに10を代入
+    b = 5  # 変数bに5を代入
+    print(f"a: {a}, b: {b}")
+    print("変数はデータを格納する箱のようなもので、値を格納したり計算に使ったりします。")
+
+# 16-4 構造化プログラミング
+def structured_programming():
+    print("構造化プログラミングは、プログラムを順序、選択、繰り返しの3つの基本構造で分けて設計する方法です。")
+
+# 16-5 アルゴリズムとフローチャート
+def algorithm_and_flowchart():
+    print("アルゴリズムは、問題解決の手順を記述したものです。")
+    print("フローチャートは、アルゴリズムを視覚的に表現するための図です。")
+
+    # シンプルなアルゴリズム例: フィボナッチ数列
+    def fibonacci(n):
+        a, b = 0, 1
+        result = []
+        for _ in range(n):
+            result.append(a)
+            a, b = b, a + b
+        return result
+
+    print("フィボナッチ数列の最初の10項:", fibonacci(10))
+
+# 16-6 データの持ち方
+def data_representation():
+    print("データの持ち方には、リスト、辞書、セット、タプルなどがあり、それぞれに利点があります。")
+    
+    # 例: リスト
+    my_list = [1, 2, 3, 4]
+    print("リスト:", my_list)
+
+    # 例: 辞書
+    my_dict = {"a": 1, "b": 2}
+    print("辞書:", my_dict)
+
+# 16-7 木（ツリー）構造
+def tree_structure():
+    print("木（ツリー）構造は、親と子の関係に基づいてデータを階層的に表現するための構造です。")
+    
+    # 二分木の例
+    class Node:
+        def __init__(self, value):
+            self.value = value
+            self.left = None
+            self.right = None
+
+    root = Node(1)
+    root.left = Node(2)
+    root.right = Node(3)
+
+    print("木の構造を持つノードの例:")
+    print(f"Root: {root.value}, Left Child: {root.left.value}, Right Child: {root.right.value}")
+
+# 16-8 データを探索するアルゴリズム
+def search_algorithm():
+    print("データを探索するアルゴリズム:")
+    
+    # 線形探索
+    def linear_search(arr, target):
+        for i, value in enumerate(arr):
+            if value == target:
+                return i
+        return -1
+
+    arr = [1, 4, 5, 7, 9, 10]
+    target = 7
+    result = linear_search(arr, target)
+    print(f"線形探索: 要素 {target} はインデックス {result} にあります。")
+
+    # 二分探索（ソートされたリストが必要）
+    def binary_search(arr, target):
+        low, high = 0, len(arr) - 1
+        while low <= high:
+            mid = (low + high) // 2
+            if arr[mid] == target:
+                return mid
+            elif arr[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return -1
+
+    arr_sorted = [1, 4, 5, 7, 9, 10]
+    target = 7
+    result = binary_search(arr_sorted, target)
+    print(f"二分探索: 要素 {target} はインデックス {result} にあります。")
+
+# 16-9 データを整列させるアルゴリズム
+def sorting_algorithm():
+    print("データを整列させるアルゴリズム:")
+    
+    # バブルソート
+    def bubble_sort(arr):
+        n = len(arr)
+        for i in range(n):
+            for j in range(0, n-i-1):
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+        return arr
+
+    arr = [64, 34, 25, 12, 22, 11, 90]
+    print(f"元の配列: {arr}")
+    sorted_arr = bubble_sort(arr)
+    print(f"整列された配列: {sorted_arr}")
+
+# 16-10 オーダ記法
+def big_o_notation():
+    print("オーダ記法（ビッグO記法）:")
+    print("アルゴリズムの計算量を表す方法です。")
+    print("O(1) は定数時間、O(n) は線形時間、O(n^2) は二次時間です。")
+
+# 16-11 擬似言語問題を読み解こう
+def pseudocode():
+    print("擬似言語は、プログラムのロジックを言葉で表現したもので、")
+    print("実際のコードではなく、アルゴリズムを理解するために使用されます。")
+    print("例：アルゴリズムが '最小値を見つける' なら、その流れを擬似コードで書く")
+
+# 16-12 オブジェクト指向プログラミング
+def object_oriented_programming():
+    print("オブジェクト指向プログラミング(OOP)は、データとメソッドを一つの単位にまとめる方法です。")
+    
+    class Person:
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
+        
+        def greet(self):
+            print(f"こんにちは、私は {self.name} です。年齢は {self.age} 歳です。")
+    
+    person = Person("Alice", 30)
+    person.greet()
+
+# 16-13 UML（Unified Modeling Language）
+def uml():
+    print("UML（統一モデリング言語）は、システムの設計を視覚的に表現するための言語です。")
+    print("主にクラス図やシーケンス図などを使用して、システムの構造や動作を表現します。")
+
+# 実行
+def main():
+    programming_languages()
+    compiler_execution()
+    variables()
+    structured_programming()
+    algorithm_and_flowchart()
+    data_representation()
+    tree_structure()
+    search_algorithm()
+    sorting_algorithm()
+    big_o_notation()
+    pseudocode()
+    object_oriented_programming()
+    uml()
+
+if __name__ == "__main__":
+    main()
